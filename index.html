@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png">
+<title>SELF UPGRADE</title>
+<style>
+
+:root{color-scheme:dark;--bg:#070b12;--panel:#101722;--panel2:#151f2c;--line:#263443;--muted:#8b9bad;--mint:#b7ff45;--cyan:#55e6d0;--white:#f4f7f9}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% -10%,rgba(183,255,69,.13),transparent 34%),radial-gradient(ellipse at -10% 35%,rgba(85,230,208,.09),transparent 35%),var(--bg);color:var(--white);font-family:Inter,-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;padding:env(safe-area-inset-top) 15px calc(30px + env(safe-area-inset-bottom));letter-spacing:.1px}
+main{max-width:610px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:23px 3px 19px}
+.brand{font-size:10px;letter-spacing:4px;color:var(--mint);font-weight:900}
+.date{color:#9cabb8;font-size:11px;letter-spacing:1px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a2934 0%,#101923 54%,#111b25 100%);border:1px solid #344553;border-radius:25px;padding:22px 20px 20px;margin-bottom:14px;box-shadow:0 18px 55px #0008}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #b7ff452b;border-radius:50%;right:-95px;top:-95px;box-shadow:0 0 0 22px #b7ff4508,0 0 0 48px #b7ff4505}
+.hero:before{content:"";position:absolute;width:110px;height:110px;background:linear-gradient(135deg,#b7ff45,#55e6d0);filter:blur(75px);opacity:.16;right:15px;bottom:-55px}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(27px,8vw,39px);line-height:1;margin:9px 0 9px;font-weight:950;letter-spacing:1.3px}
+.sub{color:var(--muted);font-size:11px;letter-spacing:.8px}
+.stats{display:flex;justify-content:space-between;align-items:end;margin:24px 0 11px}
+.xp{font-size:39px;font-weight:900;letter-spacing:-1.8px;color:var(--mint);line-height:1}
+.bar{height:7px;background:#293744;border-radius:30px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--cyan));border-radius:30px;box-shadow:0 0 14px #b7ff4570;transition:width .25s}
+.section,.foot{background:linear-gradient(145deg,rgba(19,29,41,.97),rgba(12,19,28,.97));border:1px solid #273543;border-radius:19px;padding:17px 16px;margin-bottom:12px;box-shadow:0 9px 25px #0003}
+.section h2{font-size:11px;letter-spacing:2.2px;margin:0 0 8px;color:var(--cyan);font-weight:900}
+.task{display:flex;gap:12px;align-items:center;padding:14px 1px;border-bottom:1px solid #26323e}
+.task:last-child{border:0;padding-bottom:5px}
+.task input{appearance:none;width:22px;height:22px;border:1px solid #667889;border-radius:7px;flex:none;margin:0;background:#0a111a;transition:.15s}
+.task input:checked{background:var(--mint);border-color:var(--mint);box-shadow:0 0 13px #b7ff4540}
+.task input:checked:after{content:"✓";display:block;color:#10170a;text-align:center;font-weight:1000;line-height:20px}
+.task label{flex:1;cursor:pointer}
+.task strong{display:block;font-size:13px;font-weight:750;letter-spacing:.2px}
+.task small{display:block;color:#8496a7;font-size:10px;margin-top:4px;letter-spacing:.5px}
+.points{font-size:10px;color:var(--mint);font-weight:800;letter-spacing:.5px;white-space:nowrap}
+button{border:1px solid #354555;background:#1b2937;color:#eaf1f4;border-radius:11px;padding:11px 14px;font-size:12px;font-weight:750;letter-spacing:.2px}
+button.primary{background:var(--mint);color:#11190a;border:0;box-shadow:0 5px 18px #b7ff4525}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.warning{font-size:11px;line-height:1.7;color:#f0d7a3;background:#2a241b;border:1px solid #55452b;padding:12px;border-radius:12px;margin-top:12px}
+.history{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:#1a2734;border:1px solid #2b3a47;border-radius:9px;padding:9px 2px;text-align:center;font-size:10px;color:#91a1b0}
+.day b{display:block;color:var(--mint);font-size:14px;margin-top:5px}
+.note{width:100%;min-height:84px;border:1px solid #354453;border-radius:12px;background:#0a111a;color:white;padding:12px;font:inherit;font-size:13px;resize:vertical;outline:none}
+.note:focus{border-color:var(--cyan)}
+.tiny{font-size:10px;color:#8394a4;line-height:1.7}
+.foot{border-style:dashed;background:#0d151f}
+.foot>b{font-size:13px;letter-spacing:.4px}
+@media(min-width:600px){body{padding-top:25px}.hero{padding:28px}.section{padding:20px}}
+
+</style></head>
+<body><main>
+<header class="top"><div><div class="brand">DAILY GROWTH SYSTEM</div><div style="font-size:12px;color:#9aabc0;margin-top:4px">毎日の積み重ねを記録する</div></div><div class="date" id="today"></div></header>
+<section class="hero"><div class="sub">✦ YOUR PERSONAL QUEST / 001</div><h1>SELF<br>UPGRADE<span style="color:#b7ff45">.</span></h1><div class="sub">今日の自分を、昨日より一歩前へ。</div>
+<div class="stats"><div><div class="sub">TODAY'S EXP</div><div class="xp"><span id="xp">0</span><span style="font-size:14px;color:#9aabc0"> EXP</span></div></div><div style="text-align:right"><div class="sub">LEVEL</div><div style="font-size:26px;font-weight:800" id="level">01</div></div></div>
+<div class="bar"><div class="fill" id="progress"></div></div><div class="sub" style="display:flex;justify-content:space-between;margin-top:8px"><span id="count">0 / 10 ミッション</span><b id="percent">0%</b></div></section>
+<section class="section"><h2>☀ MORNING QUEST</h2><div id="morning"></div></section>
+<section class="section" id="weightSection">
+<h2>⚖ MORNING CHECK-IN</h2>
+<p class="sub">朝シャワー・スキンケア後の記録（任意）</p>
+<div style="display:flex;gap:10px;align-items:center;margin-top:12px">
+  <input id="weightInput" type="number" inputmode="decimal" min="0" max="300" step="0.1" placeholder="例：65.0"
+    aria-label="体重 kg"
+    style="min-width:0;flex:1;background:#0a111a;border:1px solid #354453;border-radius:12px;color:#f4f7f9;padding:13px;font:inherit;font-size:17px">
+  <span style="color:#9aabb8;font-size:13px">kg</span>
+  <button class="primary" id="saveWeight">記録する</button>
+</div>
+<p class="tiny" id="weightStatus" style="margin-top:9px">体重はミッションの点数やレベルには影響しません。</p>
+</section>
+<section class="section"><h2> SCHOOL QUEST</h2><div id="day"></div></section>
+<section class="section"><h2>☾ EVENING QUEST</h2><div id="evening"></div></section>
+<section class="section"><h2>DAILY REVIEW</h2><p class="sub">今日できたこと・気づいたこと・明日意識すること</p><textarea id="note" class="note" placeholder="今日の振り返り..."></textarea><div class="actions" style="margin-top:12px"><button class="primary" id="saveNote">振り返りを保存</button><button id="reset">今日のチェックをリセット</button></div><p class="tiny" id="saved"></p></section>
+<section class="section"><h2>7-DAY RECORD</h2><div class="history" id="history"></div><p class="tiny" id="streak"></p></section>
+<section class="foot"><b>自分を大切にすることもミッション。</b><p class="warning">4:45起床・23:00就寝だと睡眠は約5時間45分です。高校生には一般に8〜10時間が推奨されます。朝晩のランニングや筋トレを毎日すべて行う必要はありません。サッカーの練習・疲労・痛みに合わせて休養や軽めの内容に調整してください。</p><p class="tiny">記録はこの端末のブラウザ内に保存されます。ブラウザのデータ削除や端末変更で消える場合があります。</p></section>
+</main>
+<script>
+const tasks=[
+{id:"wake",group:"morning",time:"04:45",name:"起床",xp:5},
+{id:"core",group:"morning",time:"05:00",name:"体幹トレーニング",xp:10},
+{id:"runam",group:"morning",time:"朝",name:"5kmランニング（朝の予定）",xp:15},
+{id:"abs",group:"morning",time:"朝",name:"腹筋",xp:10},
+{id:"skinam",group:"morning",time:"朝",name:"シャワー・スキンケア",xp:5},
+{id:"school",group:"day",time:"日中",name:"学校",xp:15},
+{id:"runpm",group:"evening",time:"帰宅後",name:"5kmランニング（帰宅後の予定）",xp:15},
+{id:"strength",group:"evening",time:"帰宅後",name:"筋トレ（背中・胸・肩・腕）",xp:15},
+{id:"bath",group:"evening",time:"夜",name:"風呂・スキンケア",xp:5},
+{id:"study",group:"evening",time:"夜",name:"自主学習",xp:10},
+{id:"sleep",group:"evening",time:"23:00",name:"就寝",xp:10}
+];
+const key=d=>`su-${d}`;
+const today=new Date();const dateKey=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+document.getElementById("today").textContent=`${today.getFullYear()}.${today.getMonth()+1}.${today.getDate()}`;
+let data=JSON.parse(localStorage.getItem(key(dateKey))||'{"done":[],"note":"","weight":""}');
+function save(){localStorage.setItem(key(dateKey),JSON.stringify(data));render();}
+function render(){
+ for(const group of ["morning","day","evening"]){
+  document.getElementById(group).innerHTML=tasks.filter(t=>t.group===group).map(t=>`<div class="task"><input type="checkbox" id="${t.id}" ${data.done.includes(t.id)?"checked":""}><label for="${t.id}"><strong>${t.name}</strong><small>${t.time}</small></label><span class="points">+${t.xp} EXP</span></div>`).join("");
+ }
+ tasks.forEach(t=>document.getElementById(t.id).addEventListener("change",e=>{data.done=e.target.checked?[...data.done,t.id]:data.done.filter(x=>x!==t.id);save();},{once:true}));
+ const earned=tasks.filter(t=>data.done.includes(t.id)).reduce((s,t)=>s+t.xp,0),pct=Math.round(data.done.length/tasks.length*100);
+ document.getElementById("xp").textContent=earned;document.getElementById("level").textContent=String(1+Math.floor(earned/50)).padStart(2,"0");
+ document.getElementById("progress").style.width=pct+"%";document.getElementById("count").textContent=`${data.done.length} / ${tasks.length} ミッション`;document.getElementById("percent").textContent=pct+"%";
+ document.getElementById("note").value=data.note||"";document.getElementById("weightInput").value=data.weight||"";
+ document.getElementById("weightStatus").textContent=data.weight?`今日の記録：${data.weight} kg（点数には影響しません）`:"体重はミッションの点数やレベルには影響しません。";
+ renderHistory();
+}
+function renderHistory(){
+ const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;const x=JSON.parse(localStorage.getItem(key(k))||'{"done":[]}');days.push({d,k,n:x.done.length});}
+ document.getElementById("history").innerHTML=days.map(x=>`<div class="day">${x.d.getMonth()+1}/${x.d.getDate()}<b>${Math.round(x.n/tasks.length*100)}%</b></div>`).join("");
+ let streak=0;for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;const x=JSON.parse(localStorage.getItem(key(k))||'{"done":[]}');if(x.done.length===tasks.length)streak++;else break;}
+ document.getElementById("streak").textContent=`連続100%達成：${streak}日`;
+}
+document.getElementById("saveNote").onclick=()=>{data.note=document.getElementById("note").value;save();document.getElementById("saved").textContent="保存しました。";};
+document.getElementById("saveWeight").onclick=()=>{
+ const input=document.getElementById("weightInput");
+ const value=input.value.trim();
+ const status=document.getElementById("weightStatus");
+ if(value==="" ){data.weight="";save();status.textContent="今日の体重記録を消去しました。";return;}
+ const n=Number(value);
+ if(!Number.isFinite(n)||n<=0||n>300){status.textContent="数値を確認して入力してください。";return;}
+ data.weight=n.toFixed(1);save();status.textContent=`今日の記録を保存しました：${data.weight} kg（点数には影響しません）`;
+};
+document.getElementById("reset").onclick=()=>{if(confirm("今日のチェックをすべてリセットしますか？")){data.done=[];data.note="";save();}};
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+render();
+</script></body></html>
